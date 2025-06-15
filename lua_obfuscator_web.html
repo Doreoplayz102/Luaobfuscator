@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lua Obfuscator</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #1e1e1e; color: #f1f1f1; padding: 2rem; }
+    textarea, button { width: 100%; margin-top: 1rem; padding: 0.75rem; font-size: 1rem; }
+    textarea { height: 200px; background: #2e2e2e; color: #fff; border: 1px solid #444; }
+    button { background: #444; color: #fff; border: none; cursor: pointer; }
+    button:hover { background: #666; }
+    #output { margin-top: 2rem; white-space: pre-wrap; word-break: break-word; }
+  </style>
+</head>
+<body>
+  <h1>Simple Lua Obfuscator</h1>
+  <textarea id="input" placeholder="Paste your Lua code here..."></textarea>
+  <button onclick="obfuscate()">Obfuscate</button>
+  <h2>Obfuscated Output:</h2>
+  <div id="output"></div>
+
+  <script>
+    function obfuscate() {
+      let code = document.getElementById('input').value;
+      let replacements = {
+        "function": "f",
+        "local": "l",
+        "end": "e",
+        "if": "i",
+        "then": "t",
+        "for": "fr",
+        "do": "d"
+      };
+      for (let word in replacements) {
+        let re = new RegExp("\\b" + word + "\\b", "g");
+        code = code.replace(re, replacements[word]);
+      }
+      code = code.replace(/\n/g, "").replace(/\s{2,}/g, " ");
+      document.getElementById('output').textContent = code;
+    }
+  </script>
+</body>
+</html>
